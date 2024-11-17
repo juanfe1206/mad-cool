@@ -33,7 +33,7 @@ class Bar():
     self.list = BarQueue()
     self.is_occupied = False
     self.profit = 0
-    self.products = {'water': 2, 'beer': 4, 'tinto de verano': 5, 'soda': 3}
+    self.products = {'water': 2, 'beer': 4, 'tinto de verano': 5, 'soda': 3, 'tequila': 7}
   
   def buy_drink(self):
     with self.lock:
