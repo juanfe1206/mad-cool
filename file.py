@@ -155,5 +155,4 @@ class Festival:
                 executor.submit(self.simulate_activity, activity, num_users)
 
 # Running the festival simulation
-festival = Festival()
-festival.run_simulation()
+time.time()
