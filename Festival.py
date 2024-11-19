@@ -6,6 +6,8 @@ class Festival:
     self.duration_time = 7 
     self.festival_name = 'FestIEval'
     self.festival_finished = False
+    self.major_artists = ['Sabrina Carpenter', 'Taylor Swift', 'Drake', 'Billie Eilish']
+    self.minor_artists = [ "Jacob Collier", "Hozier", "Doja Cat", "SZA", "Arctic Monkeys", "Karol G", "Imagine Dragons", "Dua Lipa", "Shakira", "Ed Sheeran", "Duki", "Rosalía", "Paramore", "Lana del Rey", "J Balvin", "Bad Bunny", "Twenty One Pilots", "Sala 7", "Coldplay"]
 
   def start_festival(self):
     self.festival_start_time = time.time()
