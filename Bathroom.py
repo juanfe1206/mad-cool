@@ -1,6 +1,7 @@
 import threading
 import time
 import random
+from Festival import Festival
 
 class ToiletQueue:
   def __init__(self) -> None:
@@ -38,11 +39,8 @@ class Toilet():
       customer = self.list.pop_first_customer()
       self.is_occupied = True
       print(f'bathroom {self.id} is occupied by {customer}')
-      time.sleep(random.randint(3, 6))
+      time.sleep(random.randint(1, 3))
       print(f'{customer} has finished using the bathroom {self.id}')
       self.is_occupied = False
-    
-    
-  
   
     

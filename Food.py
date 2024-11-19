@@ -35,19 +35,28 @@ class Food():
     self.profit = 0
     self.products = {'sandwich': 10, 'nachos': 7, 'hot dog': 8, 'tequeños': 5}
   
-  def buy_drink(self):
+  def buy_food(self):
     with self.lock:
       person = self.list.pop_first_customer()
       self.is_occupied = True
       prod = random.choice(list(self.products.keys()))
       print(f'{person} ordered {prod} in food truck {self.id}')
       self.profit += self.products[prod]
-      time.sleep(random.randint(2, 6))
+      time.sleep(random.randint(1, 4))
       self.is_occupied = False
   
   def get_profit(self):
     with self.lock:
       return self.profit
+  
+  def deliver_service(self):
+    while True:
+      #Set an exit condition for end of day
+      if self.list.length_of_queue() == 0:
+        time.sleep(2)
+        continue
+      
+      self.buy_food()  
     
   
   

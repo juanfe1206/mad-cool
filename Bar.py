@@ -25,7 +25,6 @@ class BarQueue:
         return None
       return self.list.pop(0)
     
-  
 class Bar():
   def __init__(self, id) -> None:
     self.id = id
@@ -49,6 +48,13 @@ class Bar():
     with self.lock:
       return self.profit
     
-  
+  def deliver_service(self):
+    while True:
+      #Set an exit condition for end of day
+      if self.list.length_of_queue() == 0:
+        time.sleep(2)
+        continue
+      
+      self.buy_drink()  
   
     
