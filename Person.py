@@ -12,4 +12,4 @@ class Person(Festival):
   
   def has_entered():
     while True:
-      
+      pass
