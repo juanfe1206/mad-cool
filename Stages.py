@@ -24,6 +24,9 @@ class Stage(Festival):
     if self.stage_type == 'SMALL' and self.stage_number == 2:
       self.presenting_artists = [self.minor_artists[i] for i in range(1, len(self.minor_artists), 2)]
     
+    
+    
+    
 stage1 = Stage('The Tower', 'MAIN', 1)  
 stage2 = Stage('The Convent', 'MAIN', 2)  
 stage3 = Stage('Area 31', 'SMALL', 1)  
