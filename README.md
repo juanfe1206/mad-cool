@@ -1,5 +1,6 @@
 # mad-cool
 
-This code will be comprised of a series of files that will work together to simulate the Mad Cool festival.
+Processes that have to happen all the time:
 
-We started by creating python files to create classes of the different processes that we will have.
+Festival:
+- **announce function** should be always working as it is in charge of updating the time passed and updating the artists in each stage
