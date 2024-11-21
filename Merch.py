@@ -55,12 +55,14 @@ class MerchStand():
     with self.lock:
       return self.profit
     
-  def deliver_service(self):
+  def deliver_service(self, festival):
     while True:
-      #Set an exit condition for end of day
+      if festival.festival_finished:
+        break
       if self.list.length_of_queue() == 0:
-        time.sleep(2)
+        print(f'Food stand {self.id} waiting')
+        time.sleep(random.randint(1, 3))
         continue
       
-      self.buy_merch()  
+      self.buy_merch() 
     

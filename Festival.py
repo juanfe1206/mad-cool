@@ -6,7 +6,7 @@ import concurrent.futures
 class Festival:
   def __init__(self):
     self.festival_start_time = None
-    self.duration_time = 7 * 60 #7 hours * 60 minutes/h = 420 minutes = 420 seconds -> 1 min = 1 sec
+    self.duration_time = 7  #7 hours * 60 minutes/h = 420 minutes = 420 seconds -> 1 min = 1 sec
     self.festival_name = 'FestIEval'
     self.festival_finished = False
     self.major_artists = ['Sabrina Carpenter', 'Drake', 'Taylor Swift', 'Billie Eilish']
@@ -24,6 +24,10 @@ class Festival:
     #CONSTANTS
     self.NUM_NORMAL_BOUNCERS = 5
     self.NUM_VIP_BOUNCERS = 5
+    self.NUM_BATHROOMS = 50
+    self.NUM_BARS = 18
+    self.NUM_FOOD_STANDS = 9
+    self.NUM_MERCH_STANDS = 5
     
   def start_festival(self):
     self.festival_start_time = time.time() + 1 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
@@ -103,7 +107,7 @@ class Festival:
         attendee = attendees_outside.pop(0)
       self.add_attendee(attendee)
       attendee.enter_festival()
-      print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"}')
+      print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"} entry')
       time.sleep(random.uniform(0.50, 1.5))
   
   def leave_festival(self):
@@ -112,7 +116,7 @@ class Festival:
         break
       with self.attendees_lock:
         attendee = self.attendees.pop(0)
-        print(f'Attendee {attendee} is now leaving')
+        print(f'Attendee {attendee.id} is now leaving')
       time.sleep(random.uniform(0.2, 0.8))
      
   def add_attendee(self, person):

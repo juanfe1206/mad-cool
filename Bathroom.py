@@ -34,6 +34,17 @@ class Toilet():
     self.list = ToiletQueue()
     self.is_occupied = False
   
+  def start_bathroom(self, festival):
+    while True:
+      if festival.festival_finished:
+        break
+      if self.list.length_of_queue() == 0:
+        print(f'bathroom {self.id} waiting')
+        time.sleep(random.randint(1, 3))
+        continue
+      self.occupied()
+      
+      
   def occupied(self):
     with self.lock:
       customer = self.list.pop_first_customer()

@@ -11,12 +11,23 @@ class Person(Festival):
     self.minor_artist_preference = random.sample(population=self.minor_artists, k=random.randint(7, 16))
     self.is_inside = False
     self.is_vip = random.choices([True, False], weights=[0.3, 0.7])[0]
+    
+    self.hunger = random.randint(0, 5)
+    self.thirst = random.randint(0, 5)
+    self.need_bathroom = random.randint(0, 5)
+    self.busy = False
   
   def enter_festival(self):
     self.is_inside = True
   
   def leave_festival(self):
     self.is_inside = False
+    
+  def check_singers(self):
+    pass
+  
+  def additional_behaviours(self):
+    pass
     
 
   
