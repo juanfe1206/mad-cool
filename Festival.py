@@ -1,5 +1,6 @@
 import time
 import threading
+import random
 
 class Festival:
   def __init__(self):
@@ -16,7 +17,13 @@ class Festival:
     self.main_stage_2 = None
     self.small_stage_1 = None
     self.small_stage_2 = None
-
+    self.attendees = []
+    self.attendees_lock = threading.Lock()
+    
+    #CONSTANTS
+    self.NUM_NORMAL_BOUNCERS = 5
+    self.NUM_VIP_BOUNCERS = 5
+    
   def start_festival(self):
     self.festival_start_time = time.time() + 1 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
     print(f"{self.festival_name} has started!, People can now come in...")
@@ -85,21 +92,35 @@ class Festival:
           if artist_info['stage'] == 'The NY Nexus':
             self.small_stage_2 = None
           time.sleep(1)
-      
-      #Print values to check that it is working correctly
-      print(f'Small stage 1: {self.small_stage_1}')
-      print(f'Small stage 2: {self.small_stage_2}')
-      print(f'Main stage 1: {self.main_stage_1}')
-      print(f'Main stage 2: {self.main_stage_2}')
-      print('\n')
       time.sleep(0.7)
       
+  def start_entering_festival(self, attendees_outside: list, attendees_outside_lock: threading.Lock):
+    while True:
+      with attendees_outside_lock:
+        if len(attendees_outside) == 0:
+          break
+        attendee = attendees_outside.pop(0)
+      self.add_attendee(attendee)
+      attendee.enter_festival()
+      print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"}')
+      time.sleep(random.uniform(0.50, 1.5))
+      
+  def add_attendee(self, person):
+    with self.attendees_lock:
+      self.attendees.append(person)
+      
+  def remove_attendee(self, person):
+    with self.attendees_lock:
+      self.attendees.remove(person)
+  
+  def get_number_of_attendees(self):
+    with self.attendees_lock:
+      return len(self.attendees)  
+    
   #To be done    
   def update_festival_finished(self):
     pass
+  
              
-festival = Festival()
-festival.start_festival()
-festival.get_schedule()
-festival.announce()
+
 
