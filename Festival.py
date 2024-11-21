@@ -1,6 +1,7 @@
 import time
 import threading
 import random
+import concurrent.futures
 
 class Festival:
   def __init__(self):
@@ -58,7 +59,7 @@ class Festival:
         start_minor_2 += 45
     
   def announce(self):
-    while True:
+    while self.festival_finished == False:
       self.update_time_passed()
       
       #Check the info of each major artist to see it they are starting or finishing to perform
@@ -104,7 +105,16 @@ class Festival:
       attendee.enter_festival()
       print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"}')
       time.sleep(random.uniform(0.50, 1.5))
-      
+  
+  def leave_festival(self):
+    while True:
+      if self.get_number_of_attendees() == 0:
+        break
+      with self.attendees_lock:
+        attendee = self.attendees.pop(0)
+        print(f'Attendee {attendee} is now leaving')
+      time.sleep(random.uniform(0.2, 0.8))
+     
   def add_attendee(self, person):
     with self.attendees_lock:
       self.attendees.append(person)
@@ -115,11 +125,18 @@ class Festival:
   
   def get_number_of_attendees(self):
     with self.attendees_lock:
-      return len(self.attendees)  
+      return len(self.attendees)   
     
-  #To be done    
   def update_festival_finished(self):
-    pass
+    while True:
+      if self.total_time_passed == None:
+        time.sleep(5)
+        continue
+      if self.total_time_passed > self.duration_time + 30:
+        self.festival_finished = True
+        self.leave_festival()
+        break
+      time.sleep(5)
   
              
 
