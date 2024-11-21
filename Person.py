@@ -23,11 +23,18 @@ class Person(Festival):
   def leave_festival(self):
     self.is_inside = False
     
-  def check_singers(self):
-    pass
+  def check_singers_and_choose(self, festival):
+    main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
+    if main_stage_1_artist in self.major_artist_preferences:
+      pass
+    if main_stage_2_artist in self.major_artist_preferences:
+      pass
+    if small_stage_1_artist in self.minor_artist_preference:
+      pass
+    if small_stage_2_artist in self.minor_artist_preference:
+      pass
   
-  def additional_behaviours(self):
-    pass
+
     
 
   

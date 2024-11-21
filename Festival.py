@@ -6,7 +6,7 @@ import concurrent.futures
 class Festival:
   def __init__(self):
     self.festival_start_time = None
-    self.duration_time = 7  #7 hours * 60 minutes/h = 420 minutes = 420 seconds -> 1 min = 1 sec
+    self.duration_time = 7 * 60 #7 hours * 60 minutes/h = 420 minutes = 420 seconds -> 1 min = 1 sec
     self.festival_name = 'FestIEval'
     self.festival_finished = False
     self.major_artists = ['Sabrina Carpenter', 'Drake', 'Taylor Swift', 'Billie Eilish']
@@ -28,9 +28,10 @@ class Festival:
     self.NUM_BARS = 18
     self.NUM_FOOD_STANDS = 9
     self.NUM_MERCH_STANDS = 5
+    self.NUM_STAGES = 4
     
   def start_festival(self):
-    self.festival_start_time = time.time() + 1 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
+    self.festival_start_time = time.time() + 30 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
     print(f"{self.festival_name} has started!, People can now come in...")
     
   def update_time_passed(self):
@@ -98,6 +99,9 @@ class Festival:
             self.small_stage_2 = None
           time.sleep(1)
       time.sleep(0.7)
+  
+  def return_current_singers(self):
+    return self.main_stage_1, self.main_stage_2, self.small_stage_1, self.small_stage_2
       
   def start_entering_festival(self, attendees_outside: list, attendees_outside_lock: threading.Lock):
     while True:
@@ -112,8 +116,13 @@ class Festival:
   
   def leave_festival(self):
     while True:
+      if self.festival_finished == False:
+        time.sleep(7)
+        continue
+      
       if self.get_number_of_attendees() == 0:
         break
+      
       with self.attendees_lock:
         attendee = self.attendees.pop(0)
         print(f'Attendee {attendee.id} is now leaving')
@@ -138,9 +147,34 @@ class Festival:
         continue
       if self.total_time_passed > self.duration_time + 30:
         self.festival_finished = True
-        self.leave_festival()
         break
       time.sleep(5)
+  
+  def get_revenues(self, bars_list, food_stands_list, merch_stands_list):
+    while True:
+      if self.festival_finished == False:
+        time.sleep(5)
+        continue
+      
+      if self.get_number_of_attendees() != 0:
+        time.sleep(1)
+        continue
+      
+      print('Computing money earned...')
+      time.sleep(5)
+      revenue = 0
+      for bar in bars_list:
+        money_earned = bar.get_profit()
+        revenue += money_earned
+      for food_stand in food_stands_list:
+        money_earned = food_stand.get_profit()
+        revenue += money_earned
+      for merch_stand in merch_stands_list:
+        money_earned = merch_stand.get_profit()
+        revenue += money_earned
+      
+      print(f'Total revenues of the day were {revenue}')
+      return revenue
   
              
 

@@ -55,7 +55,7 @@ class Food():
         break
       if self.list.length_of_queue() == 0:
         print(f'Food stand {self.id} waiting')
-        time.sleep(random.randint(1, 3))
+        time.sleep(20)
         continue
       
       self.buy_food() 
