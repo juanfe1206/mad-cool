@@ -17,9 +17,9 @@ class Bar():
       person = self.list.pop_first_customer()
       self.is_occupied = True
       prod = random.choice(list(self.products.keys()))
-      print(f'{person} ordered {prod} in bar {self.id}')
+      print(f'Person {person.id} ordered {prod} in bar {self.id}')
       self.profit += self.products[prod]
-      time.sleep(random.randint(2, 6))
+      time.sleep(random.randint(1, 4))
       self.is_occupied = False
   
   def get_profit(self):
@@ -32,7 +32,7 @@ class Bar():
         break
       if self.list.length_of_queue() == 0:
         #print(f'Bar {self.id} waiting')
-        time.sleep(20)
+        time.sleep(random.randint(1, 4))
         continue
       
       self.buy_drink()  
