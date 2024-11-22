@@ -30,6 +30,7 @@ class Stage:
       }
       self.presenting_artist = artist_map[self.stage_type].get(self.stage_number, None)
       #print(f'Current artist at {self.name} is {self.presenting_artist}')
+      
       time.sleep(3)
     
 
