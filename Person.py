@@ -3,6 +3,7 @@ import time
 from Festival import Festival
 from Food import Food
 from Bar import Bar
+from Merch import MerchStand
 
 class Person(Festival):
   def __init__(self, id) -> None:
@@ -17,7 +18,7 @@ class Person(Festival):
     self.hunger = random.randint(0, 5)
     self.thirst = random.randint(0, 5)
     self.need_bathroom = random.randint(0, 5)
-    self.want_merch = random.randint(0, 7)
+    self.want_merch = random.randint(0, 5)
   
   def enter_festival(self):
     self.is_inside = True
@@ -51,8 +52,8 @@ class Person(Festival):
         time.sleep(random.uniform(0.5, 1.5))
         continue
       
-      if self.want_merch > 8:
-        self.go_buy_merch()
+      if self.want_merch > 7:
+        self.go_buy_merch(merch_stands_list)
         time.sleep(random.uniform(0.5, 1.5))
         continue
       
@@ -78,6 +79,7 @@ class Person(Festival):
     while True:
       if food_stand.list.check_person_in(self):
         time.sleep(3)
+        #should add continue?
       break
     
     self.hunger = 0
@@ -91,13 +93,23 @@ class Person(Festival):
     while True:
       if bar_stand.list.check_person_in(self):
         time.sleep(3)
+        #should add continue?
       break
     
     self.thirst = 0
     
-  def go_buy_merch(self):
+  def go_buy_merch(self, merch_stands_list):
+    stand_number = random.randrange(0, len(merch_stands_list))
+    merch_stand: MerchStand = merch_stands_list[stand_number]
+    merch_stand.list.add_person(self)
+    
+    while True:
+      if merch_stand.list.check_person_in(self):
+        time.sleep(3)
+        #should add continue?
+      break
+    
     self.want_merch = 0
-    #print(f'Person {self.id} is going to buy merch')
     
   def go_to_bathroom(self):
     self.need_bathroom = 0

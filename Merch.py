@@ -24,9 +24,9 @@ class MerchStand():
       person = self.list.pop_first_customer()
       self.is_occupied = True
       product = random.choice(list(self.products.keys()))
-      print(f'Person {person} is buying a {product} from stand {self.id}')
+      print(f'Person {person.id} is buying a {product} from stand {self.id}')
       self.profit += self.products[product]
-      time.sleep(random.randint(2, 6))
+      time.sleep(random.randint(1, 4))
       self.is_occupied = False
       
   def get_profit(self):
@@ -39,7 +39,7 @@ class MerchStand():
         break
       if self.list.length_of_queue() == 0:
         #print(f'Food stand {self.id} waiting')
-        time.sleep(20)
+        time.sleep(random.randint(1, 4))
         continue
       
       self.buy_merch() 
