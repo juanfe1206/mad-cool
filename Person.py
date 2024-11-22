@@ -111,7 +111,7 @@ class Person(Festival):
     
     self.want_merch = 0
     
-  def go_to_bathroom(self):
+  def go_to_bathroom(self, ):
     self.need_bathroom = 0
     #print(f'Person {self.id} is going to the bathroom')
     
