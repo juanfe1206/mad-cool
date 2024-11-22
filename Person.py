@@ -4,6 +4,7 @@ from Festival import Festival
 from Food import Food
 from Bar import Bar
 from Merch import MerchStand
+from Bathroom import Toilet
 
 class Person(Festival):
   def __init__(self, id) -> None:
@@ -37,18 +38,18 @@ class Person(Festival):
         time.sleep(5)
         continue
       
-      self.hunger += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
-      self.thirst += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
-      self.need_bathroom += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
-      self.want_merch += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
+      self.hunger += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
+      self.thirst += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
+      self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
+      self.want_merch += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       
-      self.check_singers_and_choose(festival)
-
-      while True:
-        if stages_list.list.check_person_in(self):
-          time.sleep(3)
-          continue
-        break
+      #self.check_singers_and_choose(festival)
+      #
+      #while True:
+      #  if stages_list.list.check_person_in(self):
+      #    time.sleep(3)
+      #    continue
+      #  break
     
       if self.hunger > 7:
         self.go_eat(food_stands_list)
@@ -66,7 +67,7 @@ class Person(Festival):
         continue
       
       if self.need_bathroom > 7:
-        self.go_to_bathroom()
+        self.go_to_bathroom(bathrooms_list)
         time.sleep(random.uniform(0.5, 1.5))
         continue
         
@@ -87,11 +88,10 @@ class Person(Festival):
     while True:
       if food_stand.list.check_person_in(self):
         time.sleep(3)
-        #should add continue?
+        continue
       break
     
-    self.hunger = 0
-    
+    self.hunger = 0  
   
   def go_drink(self, bars_list):
     stand_number = random.randrange(0, len(bars_list))
@@ -101,7 +101,7 @@ class Person(Festival):
     while True:
       if bar_stand.list.check_person_in(self):
         time.sleep(3)
-        #should add continue?
+        continue
       break
     
     self.thirst = 0
@@ -114,14 +114,24 @@ class Person(Festival):
     while True:
       if merch_stand.list.check_person_in(self):
         time.sleep(3)
-        #should add continue?
+        continue
+        
       break
     
     self.want_merch = 0
     
-  def go_to_bathroom(self, ):
+  def go_to_bathroom(self, bathrooms_list):
+    stand_number = random.randrange(0, len(bathrooms_list))
+    bathroom_stand: Toilet = bathrooms_list[stand_number]
+    bathroom_stand.list.add_person(self)
+    
+    while True:
+      if bathroom_stand.list.check_person_in(self):
+        time.sleep(3)
+        continue
+      break
+    
     self.need_bathroom = 0
-    #print(f'Person {self.id} is going to the bathroom')
     
   
   #def check_singers_and_choose(self, festival):
