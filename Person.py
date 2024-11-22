@@ -42,6 +42,14 @@ class Person(Festival):
       self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       self.want_merch += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       
+      self.check_singers_and_choose(festival)
+
+      while True:
+        if stages_list.list.check_person_in(self):
+          time.sleep(3)
+          continue
+        break
+    
       if self.hunger > 7:
         self.go_eat(food_stands_list)
         time.sleep(random.uniform(0.5, 1.5))
@@ -67,7 +75,7 @@ class Person(Festival):
       #If I do, get stage and add myself to the concert and build concert behaviour to increase the other variables
       #If I don't I will do one of the other activities based on probabilities.
       
-      time.sleep(random.randint(1, 6))
+      time.sleep(random.uniform(0.5, 3))
       
   def go_eat(self, food_stands_list):
     stand_number = random.randrange(0, len(food_stands_list))
@@ -117,15 +125,19 @@ class Person(Festival):
     
   
   def check_singers_and_choose(self, festival):
-    main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
-    if main_stage_1_artist in self.major_artist_preferences:
-      pass
-    if main_stage_2_artist in self.major_artist_preferences:
-      pass
-    if small_stage_1_artist in self.minor_artist_preference:
-      pass
-    if small_stage_2_artist in self.minor_artist_preference:
-      pass
+      main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
+      if main_stage_1_artist in self.major_artist_preferences:
+        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+        stages_list.add_person(self.id)
+      elif main_stage_2_artist in self.major_artist_preferences:
+        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+        stages_list.add_person(self.id)
+      elif small_stage_1_artist in self.minor_artist_preference:
+        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+        stages_list.add_person(self.id)
+      elif small_stage_2_artist in self.minor_artist_preference:
+        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+        stages_list.add_person(self.id)
   
     
         
