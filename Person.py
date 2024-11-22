@@ -37,10 +37,10 @@ class Person(Festival):
         time.sleep(5)
         continue
       
-      self.hunger += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.thirst += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.want_merch += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
+      self.hunger += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
+      self.thirst += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
+      self.need_bathroom += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
+      self.want_merch += random.choices([0, 1, 2], weights=[0.75, 0.2, 0.05])[0]
       
       self.check_singers_and_choose(festival)
 
