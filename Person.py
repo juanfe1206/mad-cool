@@ -124,20 +124,20 @@ class Person(Festival):
     #print(f'Person {self.id} is going to the bathroom')
     
   
-  def check_singers_and_choose(self, festival):
-      main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
-      if main_stage_1_artist in self.major_artist_preferences:
-        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-        stages_list.add_person(self.id)
-      elif main_stage_2_artist in self.major_artist_preferences:
-        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-        stages_list.add_person(self.id)
-      elif small_stage_1_artist in self.minor_artist_preference:
-        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-        stages_list.add_person(self.id)
-      elif small_stage_2_artist in self.minor_artist_preference:
-        print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-        stages_list.add_person(self.id)
+  #def check_singers_and_choose(self, festival):
+  #    main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
+  #    if main_stage_1_artist in self.major_artist_preferences:
+  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+  #      stages_list.add_person(self.id)
+  #    elif main_stage_2_artist in self.major_artist_preferences:
+  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+  #      stages_list.add_person(self.id)
+  #    elif small_stage_1_artist in self.minor_artist_preference:
+  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+  #      stages_list.add_person(self.id)
+  #    elif small_stage_2_artist in self.minor_artist_preference:
+  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+  #      stages_list.add_person(self.id)
   
     
         
