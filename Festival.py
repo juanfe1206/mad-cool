@@ -1,7 +1,6 @@
 import time
 import threading
 import random
-import concurrent.futures
 
 class Festival:
   def __init__(self):

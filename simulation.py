@@ -15,10 +15,10 @@ ie_fest.get_schedule()
 
 #Constants
 total_num_of_attendees = 50
-max_workers = ie_fest.NUM_NORMAL_BOUNCERS + ie_fest.NUM_VIP_BOUNCERS + 3 + ie_fest.NUM_BATHROOMS + ie_fest.NUM_BARS + ie_fest.NUM_FOOD_STANDS + ie_fest.NUM_MERCH_STANDS + ie_fest.NUM_STAGES
+max_workers = total_num_of_attendees + ie_fest.NUM_NORMAL_BOUNCERS + ie_fest.NUM_VIP_BOUNCERS + 3 + ie_fest.NUM_BATHROOMS + ie_fest.NUM_BARS + ie_fest.NUM_FOOD_STANDS + ie_fest.NUM_MERCH_STANDS + ie_fest.NUM_STAGES
 
 #Create the people
-vip_outside, vip_outside_lock, general_outside, general_outside_lock = create_outside_people_lists_and_locks(total_num_of_attendees)
+attendants_outside_general, vip_outside, vip_outside_lock, general_outside, general_outside_lock = create_outside_people_lists_and_locks(total_num_of_attendees)
 
 bathrooms_list = create_bathrooms(ie_fest.NUM_BATHROOMS)
 bars_list = create_bars(ie_fest.NUM_BARS)
@@ -54,7 +54,9 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
   for bouncer in range(ie_fest.NUM_NORMAL_BOUNCERS):
     executor.submit(ie_fest.start_entering_festival, general_outside, general_outside_lock)
     
-  #Here people interact and whatever
+  #Here we are initializing the behaviour of the people
+  for person in attendants_outside_general:
+    executor.submit(person.behaviour, ie_fest, bathrooms_list, bars_list, food_stands_list, merch_stands_list, stages_list)
   
   
   #People leaving

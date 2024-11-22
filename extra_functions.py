@@ -23,7 +23,7 @@ def create_outside_people_lists_and_locks(num_of_attendees: int):
     else:
       general_outside.append(person)
       
-  return vip_outside, vip_outside_lock, general_outside, general_outside_lock
+  return attendants_outside_general, vip_outside, vip_outside_lock, general_outside, general_outside_lock
 
 
 def create_bathrooms(number: int):

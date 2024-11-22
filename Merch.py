@@ -1,35 +1,13 @@
 import threading
 import time
 import random
-
-class MerchQueue:
-  def __init__(self) -> None:
-    self.list = []
-    self.lock = threading.Lock()
-    
-  def add_person(self, person):
-    with self.lock:
-      self.list.append(person)
-  
-  def remove_person(self, person):
-    with self.lock:
-      self.list.remove(person)
-  
-  def length_of_queue(self):
-    with self.lock:
-      return len(self.list)
-    
-  def pop_first_customer(self):
-    with self.lock:
-      if(len(self.list) == 0):
-        return None
-      return self.list.pop(0)
+from Queue import Queue
   
 class MerchStand():
   def __init__(self, id) -> None:
     self.id = id
     self.lock = threading.Lock()
-    self.list = MerchQueue()
+    self.list = Queue()
     self.is_occupied = False
     self.profit = 0
     self.products = {
@@ -60,7 +38,7 @@ class MerchStand():
       if festival.festival_finished:
         break
       if self.list.length_of_queue() == 0:
-        print(f'Food stand {self.id} waiting')
+        #print(f'Food stand {self.id} waiting')
         time.sleep(20)
         continue
       
