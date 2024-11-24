@@ -142,6 +142,11 @@ class Person(Festival):
           continue
         break
       
+      self.hunger += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+      self.thirst += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+      self.need_bathroom += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+      self.want_merch += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+      
     time.sleep(random.uniform(0.5, 3))
     
   def check_singers_and_choose(self, festival, stages_list):
