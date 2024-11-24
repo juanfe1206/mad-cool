@@ -29,7 +29,7 @@ class Toilet():
       self.is_occupied = True
       print(f'bathroom {self.id} is occupied by {customer.id}')
       time.sleep(random.randint(1, 3))
-      print(f'{customer.id} has finished using the bathroom {self.id}')
+      print(f'Person {customer.id} has finished using the bathroom {self.id}')
       self.is_occupied = False
   
     

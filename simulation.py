@@ -30,7 +30,7 @@ stages_list = create_stages()
 ie_fest.start_festival()
 with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
   #Initialize all of the things regarding the festival itself. (timers, bathrooms, stages, services...)
-  executor.submit(ie_fest.announce)
+  executor.submit(ie_fest.announce, stages_list)
   executor.submit(ie_fest.update_festival_finished)
   
   for stage in stages_list:
@@ -57,7 +57,6 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
   #Here we are initializing the behaviour of the people
   for person in attendants_outside_general:
     executor.submit(person.behaviour, ie_fest, bathrooms_list, bars_list, food_stands_list, merch_stands_list, stages_list)
-  
   
   #People leaving
   for bouncer in range(ie_fest.NUM_NORMAL_BOUNCERS):

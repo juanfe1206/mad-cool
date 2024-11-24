@@ -33,10 +33,14 @@ class Stage:
       
       time.sleep(3)
 
-    
-  def number_concert_attendees(self, festival, artist, person):
-    stage_artists = festival.return_current_singers()
-    print(f'Person {person} is entering {artist} concert in stage {self.name}')
+  def concert_finished(self):
+    while True:
+      if self.list_of_users.length_of_queue() == 0:
+        break
+      self.list_of_users.pop_first_customer()
+      time.sleep(random.uniform(0.1, 0.5))
 
+  def get_number_of_attendees(self):
+    return self.list_of_users.length_of_queue()
 
     
