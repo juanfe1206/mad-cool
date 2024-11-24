@@ -28,6 +28,9 @@ class Person(Festival):
     self.is_inside = False
     
   def behaviour(self, festival, bathrooms_list, bars_list, food_stands_list, merch_stands_list, stages_list):
+    schedule_major = festival.schedule_major 
+    schedule_minor = festival.schedule_minor
+
     time.sleep(random.randint(4, 7))
     while True:
       #Exit condition
@@ -42,11 +45,12 @@ class Person(Festival):
       self.thirst += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       self.want_merch += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      
-      #self.check_singers_and_choose(festival)
-      #
+
+      stage = self.check_singers_and_choose(festival, stages_list)
+      print(stage)
+  
       #while True:
-      #  if stages_list.list.check_person_in(self):
+      #  if stages_list[stage].list_of_users.check_person_in(self):
       #    time.sleep(3)
       #    continue
       #  break
@@ -70,11 +74,6 @@ class Person(Festival):
         self.go_to_bathroom(bathrooms_list)
         time.sleep(random.uniform(0.5, 1.5))
         continue
-        
-          
-      #Now check what artist is playing and if I want to see them... 
-      #If I do, get stage and add myself to the concert and build concert behaviour to increase the other variables
-      #If I don't I will do one of the other activities based on probabilities.
       
       time.sleep(random.uniform(0.5, 3))
       
@@ -134,20 +133,42 @@ class Person(Festival):
     self.need_bathroom = 0
     
   
-  #def check_singers_and_choose(self, festival):
-  #    main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
-  #    if main_stage_1_artist in self.major_artist_preferences:
-  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-  #      stages_list.add_person(self.id)
-  #    elif main_stage_2_artist in self.major_artist_preferences:
-  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-  #      stages_list.add_person(self.id)
-  #    elif small_stage_1_artist in self.minor_artist_preference:
-  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-  #      stages_list.add_person(self.id)
-  #    elif small_stage_2_artist in self.minor_artist_preference:
-  #      print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
-  #      stages_list.add_person(self.id)
+  def check_singers_and_choose(self, festival, stages_list):
+      print(1)
+      with self.stages_lock[0]:
+        print(self.main_stage_1_artist)
+      with self.stages_lock[2]:
+        print(self.small_stage_1_artist)
+      return 0
+
+      #for artist in self.schedule_major.keys(): 
+       # if self.total_time_passed > self.schedule_major[artist]["start_time"]: continue
+        #starting_times.append(self.schedule_major[artist]["start_time"])
+
+      #if main_stage_1_artist in self.major_artist_preferences:
+      #  print('z')
+      #  print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 1')
+      #  stages_list[0].list_of_users.add_person(self.id)
+      #  stages_list[0].number_concert_attendees(festival, main_stage_1_artist, self.id)
+      #  return 0
+      #elif main_stage_2_artist in self.major_artist_preferences:
+      #  print('z')
+      #  print(f'person {self.id} is going to see artist {main_stage_1_artist} in Main Stage 2')
+      #  stages_list[1].list_of_users.add_person(self.id)
+      #  stages_list[1].number_concert_attendees(festival, main_stage_2_artist, self.id)
+      #  return 1
+      #elif small_stage_1_artist in self.minor_artist_preference and (self.schedule_minor[small_stage_1_artist]["end_time"] < starting_times[0]):
+      #  print('z')
+      #  print(f'person {self.id} is going to see artist {small_stage_1_artist} in Small Stage 1')
+      #  stages_list[2].list_of_users.add_person(self.id)
+      #  stages_list[2].number_concert_attendees(festival, small_stage_1_artist, self.id)
+      #  return 2
+      #elif small_stage_2_artist in self.minor_artist_preference and (self.schedule_minor[small_stage_1_artist]["end_time"] < starting_times[0]):
+      #  print('z')
+      #  print(f'person {self.id} is going to see artist {main_stage_1_artist} in Small Stage 2')
+      #  stages_list[3].list_of_users.add_person(self.id)
+      #  stages_list[3].number_concert_attendees(festival, small_stage_2_artist, self.id)
+      #  return 3
   
     
         

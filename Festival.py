@@ -17,6 +17,7 @@ class Festival:
     self.main_stage_2 = None
     self.small_stage_1 = None
     self.small_stage_2 = None
+    self.stages_lock = [threading.Lock() for _ in range(4)]
     self.attendees = []
     self.attendees_lock = threading.Lock()
     
@@ -64,43 +65,61 @@ class Festival:
     
   def announce(self):
     while self.festival_finished == False:
+    
       self.update_time_passed()
-      
+
       #Check the info of each major artist to see it they are starting or finishing to perform
       for artist, artist_info in self.schedule_major.items():
-        if int(self.total_time_passed) == artist_info['start_time']:
+        if artist_info['start_time'] in range(int(self.total_time_passed), int(self.total_time_passed+2)):
           if artist_info['stage'] == 'The Tower':
-            self.main_stage_1 = artist
+            with self.stages_lock[0]:
+              print(f'{artist} playing in The Tower')
+              self.main_stage_1 = artist
           if artist_info['stage'] == 'The Convent':
-            self.main_stage_2 = artist
+            with self.stages_lock[1]:
+              print(f'{artist} playing in The Convent')
+              self.main_stage_2 = artist
           time.sleep(1)
-        
-        if int(self.total_time_passed) == artist_info['end_time']:
+
+        if artist_info['end_time'] in range(int(self.total_time_passed), int(self.total_time_passed+2)):
           if artist_info['stage'] == 'The Tower':
-            self.main_stage_1 = None
+            with self.stages_lock[0]:
+              self.main_stage_1 = None
           if artist_info['stage'] == 'The Convent':
-            self.main_stage_2 = None
+            with self.stages_lock[1]:
+              self.main_stage_2 = None
           time.sleep(1)
       
       #Check the info of each minor artist to see it they are starting or finishing to perform
       for artist, artist_info in self.schedule_minor.items():
-        if int(self.total_time_passed) == artist_info['start_time']:
+        if artist_info['start_time'] in range(int(self.total_time_passed), int(self.total_time_passed+2)):
           if artist_info['stage'] == 'Area 31':
-            self.small_stage_1 = artist
+            with self.stages_lock[2]:
+              print(f'{artist} playing in Area 31')
+              self.small_stage_1 = artist
           if artist_info['stage'] == 'The NY Nexus':
-            self.small_stage_2 = artist
+            with self.stages_lock[3]:
+              print(f'{artist} playing in The NY Nexus')
+              self.small_stage_2 = artist
           time.sleep(1)
           
-        if int(self.total_time_passed) == artist_info['end_time']:
+        if artist_info['end_time'] in range(int(self.total_time_passed), int(self.total_time_passed+2)):
           if artist_info['stage'] == 'Area 31':
-            self.small_stage_1 = None
+            with self.stages_lock[2]:
+              self.small_stage_1 = None
           if artist_info['stage'] == 'The NY Nexus':
-            self.small_stage_2 = None
+            with self.stages_lock[3]:
+              self.small_stage_2 = None
           time.sleep(1)
       time.sleep(0.7)
   
   def return_current_singers(self):
-    return self.main_stage_1, self.main_stage_2, self.small_stage_1, self.small_stage_2
+    current_singers = []
+    with self.stages_lock[0]: current_singers.append(self.main_stage_1)
+    with self.stages_lock[1]: current_singers.append(self.main_stage_2)
+    with self.stages_lock[2]: current_singers.append(self.small_stage_1)
+    with self.stages_lock[3]: current_singers.append(self.small_stage_2)
+    return current_singers
       
   def start_entering_festival(self, attendees_outside: list, attendees_outside_lock: threading.Lock):
     while True:

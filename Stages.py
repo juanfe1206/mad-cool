@@ -32,6 +32,11 @@ class Stage:
       #print(f'Current artist at {self.name} is {self.presenting_artist}')
       
       time.sleep(3)
+
     
+  def number_concert_attendees(self, festival, artist, person):
+    stage_artists = festival.return_current_singers()
+    print(f'Person {person} is entering {artist} concert in stage {self.name}')
+
 
     
