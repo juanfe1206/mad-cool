@@ -20,13 +20,14 @@ class Festival:
     self.stages_lock = [threading.Lock() for _ in range(4)]
     self.attendees = []
     self.attendees_lock = threading.Lock()
+    self.max_capacity = 500
     
     #CONSTANTS
-    self.NUM_NORMAL_BOUNCERS = 5
-    self.NUM_VIP_BOUNCERS = 5
+    self.NUM_NORMAL_BOUNCERS = 13
+    self.NUM_VIP_BOUNCERS = 10
     self.NUM_BATHROOMS = 50
-    self.NUM_BARS = 18
-    self.NUM_FOOD_STANDS = 9
+    self.NUM_BARS = 16
+    self.NUM_FOOD_STANDS = 10
     self.NUM_MERCH_STANDS = 5
     self.NUM_STAGES = 4
     
@@ -139,7 +140,7 @@ class Festival:
       self.add_attendee(attendee)
       attendee.enter_festival()
       print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"} entry')
-      time.sleep(random.uniform(0.50, 1.5))
+      time.sleep(random.uniform(0.40, 1.3))
   
   def leave_festival(self):
     while True:

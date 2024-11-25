@@ -13,9 +13,9 @@ class Stage:
     self.presenting_artist = None
     
     if self.stage_type == 'MAIN':
-      self.capacity = 35000
+      self.capacity = 400
     else:
-      self.capacity = 15000
+      self.capacity = 200
       
         
   def get_presenting_artist(self, festival):
@@ -38,7 +38,8 @@ class Stage:
       if self.list_of_users.length_of_queue() == 0:
         break
       self.list_of_users.pop_first_customer()
-      time.sleep(random.uniform(0.1, 0.5))
+      time.sleep(random.uniform(0.01, 0.05))
+
 
   def get_number_of_attendees(self):
     return self.list_of_users.length_of_queue()

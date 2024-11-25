@@ -39,6 +39,11 @@ class Person(Festival):
         time.sleep(5)
         continue
       
+      probability_to_leave = random.randint(1, 10000)
+      if probability_to_leave == 1:
+        festival.remove_attendee(self)
+        break
+      
       self.hunger += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       self.thirst += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
       self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
@@ -132,22 +137,23 @@ class Person(Festival):
       my_stage: Stage = concert_info[0]
       my_artist = concert_info[1]
       
-      #Step 2: add myself to that list
-      print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
-      my_stage.list_of_users.add_person(self)
+      if my_stage.get_number_of_attendees() < my_stage.capacity:
+        #Step 2: add myself to that list
+        print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
+        my_stage.list_of_users.add_person(self)
+        
+        while True:
+          if my_stage.list_of_users.check_person_in(self):
+            time.sleep(3)
+            continue
+          break
+        
+        self.hunger += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+        self.thirst += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+        self.need_bathroom += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+        self.want_merch += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
       
-      while True:
-        if my_stage.list_of_users.check_person_in(self):
-          time.sleep(3)
-          continue
-        break
-      
-      self.hunger += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-      self.thirst += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-      self.need_bathroom += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-      self.want_merch += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-      
-    time.sleep(random.uniform(0.5, 3))
+    time.sleep(random.uniform(0.5, 2))
     
   def check_singers_and_choose(self, festival, stages_list):
     main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()

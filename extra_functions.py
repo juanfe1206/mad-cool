@@ -13,6 +13,7 @@ def create_outside_people_lists_and_locks(num_of_attendees: int):
   #Create the people
   attendants_outside_general = [Person(id) for id in range(num_of_attendees)]
   vip_outside = []
+  
   vip_outside_lock = threading.Lock()
   general_outside = []
   general_outside_lock = threading.Lock()
