@@ -50,7 +50,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
     executor.submit(merch_stand.deliver_service, ie_fest)
   
   #USER INTERFACE
-  executor.submit(user_interface, ie_fest, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock)
+  executor.submit(user_interface, ie_fest, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand, merch_stands_list)
   
   #Start letting people in
   for bouncer in range(ie_fest.NUM_VIP_BOUNCERS):

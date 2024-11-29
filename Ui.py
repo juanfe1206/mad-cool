@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import random
 import time
 
-def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock):
+def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand, merch_stands_list):
     stage_1 = stages_list[0]
     stage_2 = stages_list[1]
     stage_3 = stages_list[2]
@@ -122,7 +122,7 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
         # Draw grid-based areas with random colors
         grid_people_count = 0
         for name, subareas in subareas_data.items():
-            for subarea in subareas:
+            for index, subarea in enumerate(subareas):
                 is_red = random.choice([True, False]) #Update to the actual busy or not value
                 color = (255, 0, 0, 150) if is_red else (0, 255, 0, 150)
                 if is_red:
