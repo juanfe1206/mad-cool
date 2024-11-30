@@ -15,7 +15,7 @@ ie_fest = Festival()
 ie_fest.get_schedule()
 
 #Constants
-total_num_of_attendees = 500
+total_num_of_attendees = 10000
 max_workers = total_num_of_attendees + ie_fest.NUM_NORMAL_BOUNCERS + ie_fest.NUM_VIP_BOUNCERS + 4 + ie_fest.NUM_BATHROOMS + ie_fest.NUM_BARS + ie_fest.NUM_FOOD_STANDS + ie_fest.NUM_MERCH_STANDS + ie_fest.NUM_STAGES
 
 #Create the people
@@ -50,7 +50,7 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
     executor.submit(merch_stand.deliver_service, ie_fest)
   
   #USER INTERFACE
-  executor.submit(user_interface, ie_fest, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand, merch_stands_list)
+  executor.submit(user_interface, ie_fest, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stands_list, merch_stands_list)
   
   #Start letting people in
   for bouncer in range(ie_fest.NUM_VIP_BOUNCERS):

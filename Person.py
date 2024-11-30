@@ -44,10 +44,10 @@ class Person(Festival):
         festival.remove_attendee(self)
         break
       
-      self.hunger += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.thirst += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.need_bathroom += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
-      self.want_merch += random.choices([0, 1, 2], weights=[0.85, 0.1, 0.05])[0]
+      self.need_bathroom += random.choices([0, 1, 2], weights=[0.75, 0.15, 0.1])[0]
+      self.hunger += random.choices([0, 1, 2], weights=[0.93, 0.05, 0.02])[0]
+      self.thirst += random.choices([0, 1, 2], weights=[0.9, 0.07, 0.03])[0]
+      self.want_merch += random.choices([0, 1, 2], weights=[0.92, 0.06, 0.02])[0]
     
       if self.hunger > 7:
         self.go_eat(food_stands_list)
@@ -139,7 +139,7 @@ class Person(Festival):
       
       if my_stage.get_number_of_attendees() < my_stage.capacity:
         #Step 2: add myself to that list
-        print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
+        #print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
         my_stage.list_of_users.add_person(self)
         
         while True:
@@ -148,10 +148,12 @@ class Person(Festival):
             continue
           break
         
-        self.hunger += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-        self.thirst += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-        self.need_bathroom += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
-        self.want_merch += random.choices([0, 1, 2], weights=[0.6, 0.3, 0.1])[0]
+        
+        self.need_bathroom += random.choices([0, 1, 2], weights=[0.75, 0.15, 0.1])[0]
+        self.hunger += random.choices([0, 1, 2], weights=[0.93, 0.05, 0.02])[0]
+        self.thirst += random.choices([0, 1, 2], weights=[0.9, 0.07, 0.03])[0]
+        self.want_merch += random.choices([0, 1, 2], weights=[0.92, 0.06, 0.02])[0]
+
       
     time.sleep(random.uniform(0.5, 2))
     

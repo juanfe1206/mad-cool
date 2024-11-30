@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import random
 import time
 
-def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand, merch_stands_list):
+def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand_list, merch_stands_list):
     stage_1 = stages_list[0]
     stage_2 = stages_list[1]
     stage_3 = stages_list[2]
@@ -18,7 +18,6 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
     
     # Load the map image
     map_image = Image.open("mad-cool/festivalmap.png").convert("RGBA")
-    stop = False
     
     # Define grid-based areas with their configurations
     grid_areas = {
@@ -120,15 +119,25 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
             draw.text((centroid_x, centroid_y), f"{value}", fill="black")  # Show value inside the area
 
         # Draw grid-based areas with random colors
-        grid_people_count = 0
-        for name, subareas in subareas_data.items():
-            for index, subarea in enumerate(subareas):
-                is_red = random.choice([True, False]) #Update to the actual busy or not value
-                color = (255, 0, 0, 150) if is_red else (0, 255, 0, 150)
-                if is_red:
-                    grid_people_count += 1  # Count red squares as people
-                draw.rectangle(subarea, fill=color, outline="black", width=1)
-
+        try:
+            for name, subareas in subareas_data.items():
+                for index, subarea in enumerate(subareas):
+                    if name == "Toilets":
+                        list_to_read = bathrooms_list
+                    elif name == "Bar 1" or name == "Bar 2":
+                        list_to_read = bars_list
+                    elif name == "Foodstand":
+                        list_to_read = food_stand_list
+                    elif name == "Merch Stand":
+                        list_to_read = merch_stands_list
+                    if name == 'Bar 2':
+                        index += 8
+                
+                    is_red = list_to_read[index].lock.locked()  # Use actual lock status
+                    color = (255, 0, 0, 150) if is_red else (0, 255, 0, 150)
+                    draw.rectangle(subarea, fill=color, outline="black", width=1)
+        except Exception as e:
+            print(f"An error occurred: {e}")     
         # Calculate total people for the progress bar
         total_people = festival.get_number_of_attendees() #just get the len of the festival
         max_capacity = festival.max_capacity  # Max capacity

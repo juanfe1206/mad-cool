@@ -20,11 +20,11 @@ class Festival:
     self.stages_lock = [threading.Lock() for _ in range(4)]
     self.attendees = []
     self.attendees_lock = threading.Lock()
-    self.max_capacity = 500
+    self.max_capacity = 10000
     
     #CONSTANTS
-    self.NUM_NORMAL_BOUNCERS = 13
-    self.NUM_VIP_BOUNCERS = 10
+    self.NUM_NORMAL_BOUNCERS = 75
+    self.NUM_VIP_BOUNCERS = 55
     self.NUM_BATHROOMS = 50
     self.NUM_BARS = 16
     self.NUM_FOOD_STANDS = 10
@@ -32,7 +32,7 @@ class Festival:
     self.NUM_STAGES = 4
     
   def start_festival(self):
-    self.festival_start_time = time.time() + 10 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
+    self.festival_start_time = time.time() + 20 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
     print(f"{self.festival_name} has started!, People can now come in...")
     
   def update_time_passed(self):
@@ -139,7 +139,7 @@ class Festival:
         attendee = attendees_outside.pop(0)
       self.add_attendee(attendee)
       attendee.enter_festival()
-      print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"} entry')
+      #print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"} entry')
       time.sleep(random.uniform(0.40, 1.3))
   
   def leave_festival(self):
