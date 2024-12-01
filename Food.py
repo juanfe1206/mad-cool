@@ -19,7 +19,7 @@ class Food():
       prod = random.choice(list(self.products.keys()))
       print(f'Person {person.id} ordered {prod} in food truck {self.id}')
       self.profit += self.products[prod]
-      time.sleep(random.randint(1, 4))
+      time.sleep(random.randint(1, 3))
       self.is_occupied = False
   
   #Function to get the final profit

@@ -37,7 +37,7 @@ class Festival:
     self.NUM_STAGES = 4
     
   def start_festival(self):
-    self.festival_start_time = time.time() + 20 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
+    self.festival_start_time = time.time() + 30 #to give some time to setup and let people in before we start the concerts and everything starts working at time 0
     print(f"{self.festival_name} has started!, People can now come in...")
     
   def update_time_passed(self):
@@ -81,14 +81,14 @@ class Festival:
       
       #Check the info of each major artist to see it they are starting or finishing to perform
       for artist, artist_info in self.schedule_major.items():
-        if int(self.total_time_passed) == artist_info['start_time']:
+        if int(self.total_time_passed) > artist_info['start_time'] and int(self.total_time_passed) < artist_info['end_time']:
           if artist_info['stage'] == 'The Tower':
             with self.stages_lock[0]:
               self.main_stage_1 = artist
           if artist_info['stage'] == 'The Convent':
             with self.stages_lock[1]:
               self.main_stage_2 = artist
-          time.sleep(1)
+          #time.sleep(1.1)
         
         if int(self.total_time_passed) == artist_info['end_time']:
           if artist_info['stage'] == 'The Tower':
@@ -100,7 +100,7 @@ class Festival:
             with self.stages_lock[1]:
               self.main_stage_2 = None
             stage_2.concert_finished()
-          time.sleep(1)
+          #time.sleep(1.1)
       
       #Check the info of each minor artist to see it they are starting or finishing to perform
       for artist, artist_info in self.schedule_minor.items():
@@ -111,7 +111,7 @@ class Festival:
           if artist_info['stage'] == 'The NY Nexus':
             with self.stages_lock[3]:
               self.small_stage_2 = artist
-          time.sleep(1)
+          #time.sleep(1.1)
           
         if int(self.total_time_passed) == artist_info['end_time']:
           if artist_info['stage'] == 'Area 31':
@@ -122,8 +122,8 @@ class Festival:
             with self.stages_lock[3]:
               self.small_stage_2 = None
             stage_4.concert_finished()
-          time.sleep(1)
-      time.sleep(0.7)
+          #time.sleep(1)
+      time.sleep(0.5)
       
   def return_current_singers(self):
     with self.stages_lock[0]: 
@@ -146,7 +146,7 @@ class Festival:
       self.add_attendee(attendee)
       attendee.enter_festival()
       #print(f'Attendee {attendee.id} has entered the venue with a {"VIP" if attendee.is_vip else "Normal"} entry')
-      time.sleep(random.uniform(0.40, 1.3))
+      time.sleep(random.uniform(0.20, 0.8))
   
   def leave_festival(self):
     while True:
@@ -210,6 +210,4 @@ class Festival:
       print(f'Total revenues of the day were {revenue}')
       return revenue
   
-             
-
-
+            

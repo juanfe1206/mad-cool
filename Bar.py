@@ -18,7 +18,7 @@ class Bar():
       prod = random.choice(list(self.products.keys()))
       print(f'Person {person.id} ordered {prod} in bar {self.id}')
       self.profit += self.products[prod]
-      time.sleep(random.randint(1, 4))
+      time.sleep(random.randint(1, 3))
 
   #Final function to get the profit of the bar
   def get_profit(self):

@@ -26,7 +26,7 @@ class MerchStand():
       product = random.choice(list(self.products.keys()))
       print(f'Person {person.id} is buying a {product} from stand {self.id}')
       self.profit += self.products[product]
-      time.sleep(random.randint(1, 3))
+      time.sleep(random.randint(1, 2))
       self.is_occupied = False
       
   def get_profit(self):

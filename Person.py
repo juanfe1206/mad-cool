@@ -141,7 +141,7 @@ class Person(Festival):
       
       if my_stage.get_number_of_attendees() < my_stage.capacity:
         #Step 2: add myself to that list
-        #print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
+        print(f'Person {self.id} is going to see artist: {my_artist} in stage {my_stage.name}')
         my_stage.list_of_users.add_person(self)
         
         while True:

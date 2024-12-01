@@ -3,7 +3,7 @@ import matplotlib
 matplotlib.use('TkAgg')  
 import matplotlib.pyplot as plt
 import random
-import time
+
 
 #Function to start the UI. It gets all the info to be able to dinamically change the values and be accurate
 def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand_list, merch_stands_list):
@@ -99,10 +99,10 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
 
         # Simulate values for stage areas
         current_values = {
-            "stage1": (stage_1.get_number_of_attendees(), stage_1_max_capacity), 
-            "stage2": (stage_2.get_number_of_attendees(), stage_2_max_capacity),
-            "stage3": (stage_3.get_number_of_attendees(), stage_3_max_capacity),
-            "stage4": (stage_4.get_number_of_attendees(), stage_4_max_capacity)
+            "stage1": (stage_1.get_number_of_attendees(), stage_1_max_capacity, stage_1.get_current_artist()), 
+            "stage2": (stage_2.get_number_of_attendees(), stage_2_max_capacity, stage_2.get_current_artist()),
+            "stage3": (stage_3.get_number_of_attendees(), stage_3_max_capacity, stage_3.get_current_artist()),
+            "stage4": (stage_4.get_number_of_attendees(), stage_4_max_capacity, stage_4.get_current_artist())
         }
 
         # Draw the stage areas with colors based on the values
@@ -111,6 +111,7 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
             info = current_values[name]
             value = info[0]
             max_capacity = info[1]
+            artist = info[2]
             stage_people_count += value  # Count people in the stages
             color = value_to_color(value, max_value=max_capacity) #I would have to give the max value of the stage
             draw.polygon(points, fill=color, outline="black", width=3)
@@ -118,6 +119,7 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
             centroid_x = sum(x for x, y in points) // len(points)
             centroid_y = sum(y for x, y in points) // len(points)
             draw.text((centroid_x, centroid_y), f"{value}", fill="black")  # Show value inside the area
+            draw.text((centroid_x -15, centroid_y + 15), f"{artist}", fill="black")  # Show value inside the area
 
         # Draw grid-based areas with random colors
         try:
