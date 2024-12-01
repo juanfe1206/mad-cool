@@ -1,5 +1,7 @@
 import threading
 
+#General class to handle queues for the different extra features that we have (bathrooms, Bars,...)
+#By using this class we are making sure that the critical areas are coded correctly and thus our future code will be easier.
 class Queue:
   def __init__(self) -> None:
     self.list = []

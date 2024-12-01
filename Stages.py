@@ -12,12 +12,15 @@ class Stage:
     self.list_of_users = Queue()
     self.presenting_artist = None
     
+    #The capacity of the stages depend on how big they are. This will handle if its a Main stage (bigger stage) 
+    #to dinamically set the capacity of the stage.
     if self.stage_type == 'MAIN':
       self.capacity = 4800
     else:
       self.capacity = 2500
       
-        
+  #This function gets the current singers and then changes the presenting_artist variable depending on who is performing
+  #It defaults to None if no one is currently performing.      
   def get_presenting_artist(self, festival):
     while True:
       if festival.festival_finished == True:
@@ -33,6 +36,7 @@ class Stage:
       
       time.sleep(3)
 
+  #Method to handle removing the people from the stage before the next one starts
   def concert_finished(self):
     while True:
       if self.list_of_users.length_of_queue() == 0:

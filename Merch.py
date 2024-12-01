@@ -33,6 +33,7 @@ class MerchStand():
     with self.lock:
       return self.profit
     
+  #Function to initialize the threads
   def deliver_service(self, festival):
     while True:
       if festival.festival_finished:

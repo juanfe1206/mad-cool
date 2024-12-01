@@ -1,10 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont
 import matplotlib
-matplotlib.use('TkAgg')  # Use a backend that works well in most environments
+matplotlib.use('TkAgg')  
 import matplotlib.pyplot as plt
 import random
 import time
 
+#Function to start the UI. It gets all the info to be able to dinamically change the values and be accurate
 def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general_outside, general_outside_lock, bathrooms_list, bars_list, food_stand_list, merch_stands_list):
     stage_1 = stages_list[0]
     stage_2 = stages_list[1]

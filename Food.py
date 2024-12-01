@@ -22,10 +22,12 @@ class Food():
       time.sleep(random.randint(1, 4))
       self.is_occupied = False
   
+  #Function to get the final profit
   def get_profit(self):
     with self.lock:
       return self.profit
   
+  #Function to initialize the threads
   def deliver_service(self, festival):
     while True:
       if festival.festival_finished:

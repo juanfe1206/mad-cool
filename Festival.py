@@ -8,21 +8,26 @@ class Festival:
     self.duration_time = 7 * 60 #7 hours * 60 minutes/h = 420 minutes = 420 seconds -> 1 min = 1 sec
     self.festival_name = 'FestIEval'
     self.festival_finished = False
+    #Pre defined artists who will be presenting
     self.major_artists = ['Sabrina Carpenter', 'Drake', 'Taylor Swift', 'Billie Eilish']
     self.minor_artists = [ "Jacob Collier", "Hozier", "Doja Cat", "SZA", "Arctic Monkeys", "Karol G", "Imagine Dragons", "Dua Lipa", "Shakira", "Ed Sheeran", "Duki", "Rosalía", "Paramore", "Lana del Rey", "J Balvin", "Bad Bunny", "Twenty One Pilots", "Sala 7", "Coldplay"]
     self.schedule_minor = {}
     self.schedule_major = {}
     self.total_time_passed = None
+    
+    #Information regarding the stages
     self.main_stage_1 = None
     self.main_stage_2 = None
     self.small_stage_1 = None
     self.small_stage_2 = None
+    #Lock to update the values of the stages as they are critical areas
     self.stages_lock = [threading.Lock() for _ in range(4)]
+    
     self.attendees = []
     self.attendees_lock = threading.Lock()
-    self.max_capacity = 10000
     
-    #CONSTANTS
+    #CONSTANTS - (These numbers can be changed to tune the entry rate and visualize how it works with different amounts of people coming in)
+    self.max_capacity = 10000
     self.NUM_NORMAL_BOUNCERS = 75
     self.NUM_VIP_BOUNCERS = 55
     self.NUM_BATHROOMS = 50
@@ -38,6 +43,7 @@ class Festival:
   def update_time_passed(self):
     self.total_time_passed = time.time() - self.festival_start_time
     
+  #Method to divide the presenting artists into their stages and allocate them their presenting time. 
   def get_schedule(self):
     start_minor_1 = 0
     start_minor_2 = 15

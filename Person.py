@@ -28,6 +28,8 @@ class Person(Festival):
   def leave_festival(self):
     self.is_inside = False
     
+  #Important funtion to mimic the behaviour. 
+  #It works by checking a few variables that mimic the usual behaviour of a person and depending on those, the user will choose what to do.
   def behaviour(self, festival, bathrooms_list, bars_list, food_stands_list, merch_stands_list, stages_list):
     time.sleep(random.randint(4, 7))
     while True:
@@ -157,6 +159,9 @@ class Person(Festival):
       
     time.sleep(random.uniform(0.5, 2))
     
+  #In this method the person will be able to check the singer and choose where to go.
+  #Since the major artists are more important, they are checked first, if a major artist is performing the person will choose to go to them,
+  #Else, they will go to a minor artists if they want to see their performance and no major artist they like is presenting.
   def check_singers_and_choose(self, festival, stages_list):
     main_stage_1_artist, main_stage_2_artist, small_stage_1_artist, small_stage_2_artist = festival.return_current_singers()
     if main_stage_1_artist in self.major_artist_preferences:

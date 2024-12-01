@@ -9,8 +9,8 @@ class Toilet():
     self.id = id
     self.lock = threading.Lock()
     self.list = Queue()
-    self.is_occupied = False
   
+  #Method to start the thread and keep it running until the festival is over.
   def start_bathroom(self, festival):
     while True:
       if festival.festival_finished:
@@ -21,7 +21,6 @@ class Toilet():
         continue
       self.occupied()
       time.sleep(random.randint(1, 4))
-      
       
   def occupied(self):
     with self.lock:

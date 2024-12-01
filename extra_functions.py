@@ -9,6 +9,8 @@ from Food import Food
 from Merch import MerchStand
 from Stages import Stage
 
+#The following are small functions that aid in the creation of the instances of classes so that they are always handled the same for this simulation.
+#They are also flexible so we can increase the number of instances for each independent process like Bar or Food Stand
 def create_outside_people_lists_and_locks(num_of_attendees: int):
   #Create the people
   attendants_outside_general = [Person(id) for id in range(num_of_attendees)]
@@ -25,7 +27,6 @@ def create_outside_people_lists_and_locks(num_of_attendees: int):
       general_outside.append(person)
       
   return attendants_outside_general, vip_outside, vip_outside_lock, general_outside, general_outside_lock
-
 
 def create_bathrooms(number: int):
   return [Toilet(id) for id in range(number)]
