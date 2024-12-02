@@ -20,7 +20,7 @@ ie_fest.get_schedule()
 
 #Constants
 total_num_of_attendees = 10000
-max_workers = total_num_of_attendees + ie_fest.NUM_NORMAL_BOUNCERS + ie_fest.NUM_VIP_BOUNCERS + 4 + ie_fest.NUM_BATHROOMS + ie_fest.NUM_BARS + ie_fest.NUM_FOOD_STANDS + ie_fest.NUM_MERCH_STANDS + ie_fest.NUM_STAGES
+max_workers = total_num_of_attendees + ie_fest.NUM_NORMAL_BOUNCERS + ie_fest.NUM_VIP_BOUNCERS + 5 + ie_fest.NUM_BATHROOMS + ie_fest.NUM_BARS + ie_fest.NUM_FOOD_STANDS + ie_fest.NUM_MERCH_STANDS + ie_fest.NUM_STAGES
 
 #Create the people
 attendants_outside_general, vip_outside, vip_outside_lock, general_outside, general_outside_lock = create_outside_people_lists_and_locks(total_num_of_attendees)
@@ -37,6 +37,9 @@ ie_fest.start_festival()
 #Start the multi threads.
 with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
   #Initialize all of the things regarding the festival itself. (timers, bathrooms, stages, services...)
+  executor.submit(ie_fest.announce, stages_list)
+  time.sleep(0.2)
+  #Adding another announce thread to make sure that all of the artists are announced correctly
   executor.submit(ie_fest.announce, stages_list)
   executor.submit(ie_fest.update_festival_finished)
   

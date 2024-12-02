@@ -99,10 +99,10 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
 
         # Simulate values for stage areas
         current_values = {
-            "stage1": (stage_1.get_number_of_attendees(), stage_1_max_capacity, stage_1.get_current_artist()), 
-            "stage2": (stage_2.get_number_of_attendees(), stage_2_max_capacity, stage_2.get_current_artist()),
-            "stage3": (stage_3.get_number_of_attendees(), stage_3_max_capacity, stage_3.get_current_artist()),
-            "stage4": (stage_4.get_number_of_attendees(), stage_4_max_capacity, stage_4.get_current_artist())
+            "stage1": (stage_1.get_number_of_attendees(), stage_1_max_capacity, festival.return_current_singers()[0]), 
+            "stage2": (stage_2.get_number_of_attendees(), stage_2_max_capacity, festival.return_current_singers()[1]),
+            "stage3": (stage_3.get_number_of_attendees(), stage_3_max_capacity, festival.return_current_singers()[2]),
+            "stage4": (stage_4.get_number_of_attendees(), stage_4_max_capacity, festival.return_current_singers()[3])
         }
 
         # Draw the stage areas with colors based on the values

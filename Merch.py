@@ -8,7 +8,6 @@ class MerchStand():
     self.id = id
     self.lock = threading.Lock()
     self.list = Queue()
-    self.is_occupied = False
     self.profit = 0
     self.products = {
       "T-shirt": 20,
@@ -22,12 +21,11 @@ class MerchStand():
   def buy_merch(self):
     with self.lock:
       person = self.list.pop_first_customer()
-      self.is_occupied = True
       product = random.choice(list(self.products.keys()))
       print(f'Person {person.id} is buying a {product} from stand {self.id}')
       self.profit += self.products[product]
       time.sleep(random.randint(1, 2))
-      self.is_occupied = False
+
       
   def get_profit(self):
     with self.lock:

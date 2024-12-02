@@ -37,10 +37,6 @@ class Stage:
       #print(f'Current artist at {self.name} is {self.presenting_artist}')
       
       time.sleep(1)
-
-  def get_current_artist(self):
-    with self.presenting_artist_lock:
-      return self.presenting_artist
     
   #Method to handle removing the people from the stage before the next one starts
   def concert_finished(self):
