@@ -83,6 +83,13 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
             remove_center
         )
 
+    #Get the total lenghts
+    with vip_outside_lock:
+        total_vip_queue_length = len(vip_outside)
+            
+    with general_outside_lock:
+        total_normal_queue_length = len(general_outside)
+        
     # Main loop to update the image with all functionalities
     plt.ion()  # Turn on interactive mode for continuous display
 
@@ -179,15 +186,15 @@ def user_interface(festival, stages_list, vip_outside, vip_outside_lock, general
 
         # Normal Queue
         normal_bar_top_left = (987, 144)
-        normal_bar_bottom_right = (987 + int(normal_queue_length / 100 * max_bar_length), 174)
+        normal_bar_bottom_right = (987 + int(normal_queue_length / total_normal_queue_length * 500), 174)
         draw.text((normal_bar_top_left[0], normal_bar_top_left[1] - 20), "  Normal Queue", fill="black", font=ImageFont.load_default())
-        draw.rectangle([normal_bar_top_left, normal_bar_bottom_right], fill=value_to_color(normal_queue_length))
+        draw.rectangle([normal_bar_top_left, normal_bar_bottom_right], fill=value_to_color(value=normal_queue_length, max_value=total_normal_queue_length))
 
         # VIP Queue
         vip_bar_top_left = (987, 201)
-        vip_bar_bottom_right = (987 + int(vip_queue_length / 100 * max_bar_length), 231)
+        vip_bar_bottom_right = (987 + int(vip_queue_length / total_vip_queue_length * 500), 231)
         draw.text((vip_bar_top_left[0], vip_bar_top_left[1] - 20), "  VIP Queue", fill="black", font=ImageFont.load_default())
-        draw.rectangle([vip_bar_top_left, vip_bar_bottom_right], fill=value_to_color(vip_queue_length))
+        draw.rectangle([vip_bar_top_left, vip_bar_bottom_right], fill=value_to_color(value=vip_queue_length, max_value=total_vip_queue_length))
 
         # Display the updated image
         plt.imshow(map_image_copy)
